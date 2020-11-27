@@ -1,13 +1,24 @@
 <template>
-  <p>App...</p>
+  <div>
+    <Header></Header>
+    <router-view></router-view>
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
+import Header from './commponts/Header'
+import Footer from './commponts/Footer'
 export default {
   name: "App",
+  components: {
+    Footer,
+    Header,
+  },
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 </style>
+
 
