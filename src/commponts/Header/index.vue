@@ -6,8 +6,8 @@
           <p>尚品汇欢迎您！</p>
           <p>
             <span>请</span>
-            <a href="#">登录</a>
-            <a href="#" class="register">免费注册</a>
+            <router-link to="/home">登录</router-link>
+            <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
         <div class="type-list">
@@ -25,9 +25,9 @@
 
     <div class="header-bottom">
       <h1 class="logo">
-        <a href="#">
+        <router-link to="/">
           <img src="./images/logo.png" alt="" />
-        </a>
+        </router-link>
       </h1>
       <div class="header-search">
         <form action="" class="search-form">
@@ -36,7 +36,10 @@
             id="autocomplete"
             class="sui-btn btn-xlarge btn-danger"
           />
-          <button class="sui-btn btn-xlarge btn-danger">搜索</button>
+          <button 
+           @click="search"
+           class="sui-btn btn-xlarge btn-danger"
+           >搜索</button>
         </form>
       </div>
     </div>
@@ -46,6 +49,11 @@
 <script>
 export default {
   name: "Header",
+  methods:{
+      search(){
+          console.log(1);
+      }
+  }
 };
 </script>
 
