@@ -33,6 +33,9 @@ ul, ol { list-style: none; }
 
 /* 重置文本格式元素 */
 a { text-decoration: none; color: #666;}
+a:hover{
+    color: #f3610d;
+}
 
 
 /* 重置表单元素 */

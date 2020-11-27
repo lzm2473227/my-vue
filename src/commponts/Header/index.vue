@@ -87,7 +87,9 @@ export default {
   padding: 0 5px;
   margin-left: 5px;
 }
-
+form{
+    display: flex;
+}
 .header-bottom {
   width: 1200px;
   margin: 0 auto;
