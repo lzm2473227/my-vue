@@ -6,7 +6,7 @@
           <p>尚品汇欢迎您！</p>
           <p>
             <span>请</span>
-            <router-link to="/home">登录</router-link>
+            <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
@@ -51,7 +51,7 @@ export default {
   name: "Header",
   methods:{
       search(){
-          console.log(1);
+          this.$router.push("/search")
       }
   }
 };
