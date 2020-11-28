@@ -1,6 +1,6 @@
 <template>
   <div>
-      Register...
+      ...register  注册页面
   </div>
 </template>
 

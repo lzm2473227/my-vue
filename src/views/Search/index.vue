@@ -1,15 +1,12 @@
 <template>
-  <div>
-      <!-- Search... -->
-  </div>
+  <div>search。。。</div>
 </template>
 
 <script>
 export default {
-  name: 'Search',
-}
+  name: "Search",
+};
 </script>
 
 <style lang="less" scoped>
-
 </style>

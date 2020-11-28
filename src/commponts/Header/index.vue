@@ -35,10 +35,12 @@
             type="text"
             id="autocomplete"
             class="sui-btn btn-xlarge btn-danger"
+            v-model="searchText"
           />
           <button 
            @click="search"
            class="sui-btn btn-xlarge btn-danger"
+           type="button"
            >搜索</button>
         </form>
       </div>
@@ -49,9 +51,16 @@
 <script>
 export default {
   name: "Header",
+  data(){
+      return {
+          searchText:''
+      }
+  },
   methods:{
       search(){
-          this.$router.push("/search")
+          const {searchText} = this
+          this.$router.push("/search" + (searchText ? `/${searchText}` : ""))  //query字符串写法
+        
       }
   }
 };

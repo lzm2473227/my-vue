@@ -145,6 +145,7 @@ button {
 }
 .call {
   margin-top: 30px;
+  overflow: hidden;
 }
 .register {
   float: right;
