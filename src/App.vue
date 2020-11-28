@@ -2,7 +2,9 @@
   <div>
     <Header></Header>
     <router-view></router-view>
-    <Footer v-if="!$route.meta.isfooterShow"></Footer>
+    <!-- 希望在footer看不到公共的组件，在路由配置meta:true,不想看到取反就行 -->
+    <!-- <Footer v-if="!$route.meta.isfooterShow"></Footer> -->
+    <Footer></Footer>
   </div>
 </template>
 
