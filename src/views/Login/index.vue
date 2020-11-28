@@ -1,6 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="login">
+        <button @click="login"></button>
       <div class="login-from">
         <ul>
           <li><a href="##">扫描登录</a></li>
@@ -9,11 +10,11 @@
         <div class="login-content">
           <form action="##">
             <div class="input-text">
-              <input type="text" placeholder="手机号" v-model="phone"/>
+              <input type="text" placeholder="手机号" />
             </div>
 
             <div class="input-text">
-              <input type="text" placeholder="请输入密码" v-model="password"/>
+              <input type="text" placeholder="请输入密码" />
             </div>
             <div class="setting">
               <label class="checkbox">
@@ -34,17 +35,20 @@
 </template>
 
 <script>
+import { reqLogin } from "@api/user";
 export default {
   name: "Login",
-  date() {
-    return {
-      phone: "",
-      password: "",
-    };
+  methods: {
+      login(){
+          reqLogin('13700000000','111111')
+          .then((res)=>{
+              console.log('res',res);
+          })
+          .catch((err)=>{
+              console.log('err',err);
+          })
+      }
   },
-  methods:{
-
-  }
 };
 </script>
 
