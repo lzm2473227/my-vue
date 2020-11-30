@@ -1,8 +1,8 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container">
-      <h2 class="all">全部商品分类</h2>
+    <div class="container" @mouseenter="issearchshow = false">
+      <h2 class="all" @mouseleave="issearchshow = true">全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,39 +13,55 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div
-            class="item bo"
-            v-for="category in categoryList"
-            :key="category.categoryId"
-          >
-            <h3>
-              <a href="">{{ category.categoryName }}</a>
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem">
-                <dl
-                  class="fore"
-                  v-for="child in category.categoryChild"
-                  :key="child.childId"
+      <transition name="search">
+        <div class="sort" v-show="ishomeshow || issearchshow">
+          <div class="all-sort-list2" @click="goSearch">
+            <div
+              class="item bo"
+              v-for="category in categoryList"
+              :key="category.categoryId"
+            >
+              <h3>
+                <a
+                  :data-categoryName="category.categoryName"
+                  :data-categoryId="category.categoryId"
+                  :data-categoryType="1"
+                  >{{ category.categoryName }}</a
                 >
-                  <dt>
-                    <a href="">{{ child.categoryName }}</a>
-                  </dt>
-                  <dd>
-                    <em
-                      v-for="grandChild in child.categoryChild"
-                      :key="grandChild.grandChildId"
-                    >
-                      <a href="">{{ grandChild.categoryName }}</a>
-                    </em>
-                  </dd>
-                </dl>
+              </h3>
+              <div class="item-list clearfix">
+                <div class="subitem">
+                  <dl
+                    class="fore"
+                    v-for="child in category.categoryChild"
+                    :key="child.childId"
+                  >
+                    <dt>
+                      <a
+                        :data-categoryName="child.categoryName"
+                        :data-categoryId="child.categoryId"
+                        :data-categoryType="2"
+                        >{{ child.categoryName }}</a
+                      >
+                    </dt>
+                    <dd>
+                      <em
+                        v-for="grandChild in child.categoryChild"
+                        :key="grandChild.grandChildId"
+                      >
+                        <a
+                          :data-categoryName="grandChild.categoryName"
+                          :data-categoryId="grandChild.categoryId"
+                          :data-categoryType="3"
+                          >{{ grandChild.categoryName }}</a
+                        >
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- <div class="item">
+            <!-- <div class="item">
             <h3>
               <a href="">家用电器</a>
             </h3>
@@ -404,8 +420,9 @@
               </div>
             </div>
           </div> -->
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -414,6 +431,12 @@
 import { mapState, mapActions } from "vuex";
 export default {
   name: "TypeNav",
+  data() {
+    return {
+      ishomeshow: this.$route.path === "/",
+      issearchshow: false,
+    };
+  },
   computed: {
     ...mapState({
       categoryList: (state) => state.home.categoryList,
@@ -421,12 +444,28 @@ export default {
   },
   methods: {
     ...mapActions(["getCategoryList"]),
+    goSearch(e) {
+      const { categoryname, categoryid, categorytype } = e.target.dataset;
+      //   console.log(categoryname, categoryid, categorytype);
+      //   console.log(categorytype);
+      //   console.log(categoryid);
+        if (!categoryname) return;
+      this.$router.push({
+        name: "search",
+        query: {
+          categoryName: categoryname,
+          [`category${categorytype}Id`]: categoryid,
+        },
+      });
+    },
   },
   mounted() {
+    //有数据就直接return   不需要任何操作
+    if (this.categoryList.length) return;
     // const result = reqGetBaseCatgoryList();
     // this.categoryList = categoryList.slice(0, 15);
-    this.getCategoryList()
-    console.log(this);
+    this.getCategoryList();
+    // console.log(this);
   },
 };
 </script>
@@ -471,6 +510,13 @@ export default {
       position: absolute;
       background: #fafafa;
       z-index: 999;
+      &.search-enter-active {
+        transition: height 1s;
+        overflow: hidden;
+      }
+      &.search-enter {
+        height: 0px;
+      }
 
       .all-sort-list2 {
         .item {

@@ -8,22 +8,20 @@ import Search from "../views/Search";
 const push = VueRouter.prototype.push;
 const replace = VueRouter.prototype.replace;
 
-VueRouter.prototype.push = function(location,onComplete,onAbout) {
-    if(onComplete && onAbout){
-        return push.call(this,location,onComplete,onAbout)
-    }
-    return push.call(this,location,onComplete,()=>{})
+VueRouter.prototype.push = function(location, onComplete, onAbout) {
+  if (onComplete && onAbout) {
+    return push.call(this, location, onComplete, onAbout);
+  }
+  return push.call(this, location, onComplete, () => {});
 };
-VueRouter.prototype.replace = function(location,onComplete,onAbout) {
-    if(onComplete && onAbout){
-        return replace.call(this,location,onComplete,onAbout)
-    }
-    return replace.call(this,location,onComplete,()=>{})
+VueRouter.prototype.replace = function(location, onComplete, onAbout) {
+  if (onComplete && onAbout) {
+    return replace.call(this, location, onComplete, onAbout);
+  }
+  return replace.call(this, location, onComplete, () => {});
 };
 
 // console.log(VueRouter.prototype);
-
-
 
 Vue.use(VueRouter);
 
@@ -48,6 +46,7 @@ export default new VueRouter({
       },
     },
     {
+      name: "search",
       path: "/search/:searchText?",
       component: Search,
     },

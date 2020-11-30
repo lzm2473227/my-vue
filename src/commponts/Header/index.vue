@@ -37,11 +37,13 @@
             class="sui-btn btn-xlarge btn-danger"
             v-model="searchText"
           />
-          <button 
-           @click="search"
-           class="sui-btn btn-xlarge btn-danger"
-           type="button"
-           >搜索</button>
+          <button
+            @click="search"
+            class="sui-btn btn-xlarge btn-danger"
+            type="button"
+          >
+            搜索
+          </button>
         </form>
       </div>
     </div>
@@ -51,18 +53,30 @@
 <script>
 export default {
   name: "Header",
-  data(){
-      return {
-          searchText:''
-      }
+  data() {
+    return {
+      searchText: "",
+    };
   },
-  methods:{
-      search(){
-          const {searchText} = this
-          this.$router.push("/search" + (searchText ? `/${searchText}` : ""))  //query字符串写法
-        
+  methods: {
+    search() {
+      const { searchText } = this;
+      const location = {
+        name: "search",
+      };
+
+      if (searchText) {
+        location.params = {
+          searchText,
+        };
       }
-  }
+      const { categoryName } = this.$route.query;
+      if (categoryName) {
+        location.query = this.$route.query;
+      }
+      this.$router.push(location);
+    },
+  },
 };
 </script>
 
@@ -96,8 +110,8 @@ export default {
   padding: 0 5px;
   margin-left: 5px;
 }
-form{
-    display: flex;
+form {
+  display: flex;
 }
 .header-bottom {
   width: 1200px;

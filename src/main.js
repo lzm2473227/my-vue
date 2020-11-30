@@ -10,6 +10,9 @@ import "./styles/reset.css";
 
 import "./plugins/element.js";
 
+//引入mockServer，加载其中代码，加载就会启动mock服务器，从而拦截相应的请求
+import './mock/mockServer'
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
