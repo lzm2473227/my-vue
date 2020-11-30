@@ -23,7 +23,7 @@
               >
               <span class="forget">忘记密码？</span>
             </div>
-            <button class="btn">登入</button>
+            <button class="btn"><router-link to="/">登入</router-link></button>
           </form>
           <div class="call">
             <router-link to="/register" class="register">立即注册</router-link>
