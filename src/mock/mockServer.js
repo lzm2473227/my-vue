@@ -1,6 +1,6 @@
 import Mock from "mockjs";
 import banners from "./rbanners.json";
-import floors from "./floors.json";
+import floors from "./rfloors.json";
 
 //一旦运行 就会拦截get请求
 Mock.mock("/mock/banners", "get", {

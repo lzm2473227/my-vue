@@ -3,37 +3,7 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <div
-              class="swiper-slide"
-              v-for="banner in banners"
-              :key="banner.id"
-            >
-              <img :src="banner.imgUrl" />
-            </div>
-            <!-- <div
-              class="swiper-slide"
-              v-for="item in banners"
-              :key="item.id"
-              style="position: absolute"
-            >
-              <div class="block">
-                <el-carousel height="450px" style="width:720px">
-                  <el-carousel-item v-for="item in banners" :key="item.id">
-                    <h3 class="small"><img :src="item.imgUrl" /></h3>
-                  </el-carousel-item>
-                </el-carousel>
-              </div>
-            </div> -->
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <Carousel :carouselList="banners"/>
       </div>
       <div class="right">
         <div class="news">
@@ -111,10 +81,15 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
-import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
-import "swiper/swiper-bundle.min.css";
-// 要使用其他功能，需要先加载
-Swiper.use([Navigation, Pagination, Autoplay]);
+// import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
+// import "swiper/swiper-bundle.min.css";
+//多个地方使用，定义组件复用
+import Carousel from '@comps/Carousel'
+// import Carousel from '../../../commponts/Carousel'
+
+
+// // 要使用其他功能，需要先加载
+// Swiper.use([Navigation, Pagination, Autoplay]);
 
 export default {
   name: "ListContainer",
@@ -129,7 +104,7 @@ export default {
   async mounted() {
     await this.getBanners();
 
-    this.$nextTick(() => {
+   /*  this.$nextTick(() => {
       new Swiper(".swiper-container", {
         loop: true,
         autoplay: {
@@ -145,8 +120,11 @@ export default {
           prevEl: ".swiper-button-prev",
         },
       });
-    });
+    }); */
   },
+  components:{
+      Carousel
+  }
 };
 </script>
 

@@ -8,7 +8,7 @@ module.exports = {
         "@view": path.resolve(__dirname, "src/views"),
         "@assets": path.resolve(__dirname, "src/assets"),
         "@store": path.resolve(__dirname, "src/store"),
-        "@comps": path.resolve(__dirname, "src/comps"),
+        "@comps": path.resolve(__dirname, "src/commponts"),
         "@view": path.resolve(__dirname, "src/views"),
         "@utils": path.resolve(__dirname, "src/utils"),
         "@api": path.resolve(__dirname, "src/api"),
