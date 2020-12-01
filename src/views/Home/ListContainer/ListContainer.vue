@@ -3,18 +3,16 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container">
           <div class="swiper-wrapper">
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div> -->
             <div
+              class="swiper-slide"
+              v-for="banner in banners"
+              :key="banner.id"
+            >
+              <img :src="banner.imgUrl" />
+            </div>
+            <!-- <div
               class="swiper-slide"
               v-for="item in banners"
               :key="item.id"
@@ -27,7 +25,7 @@
                   </el-carousel-item>
                 </el-carousel>
               </div>
-            </div>
+            </div> -->
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -112,6 +110,12 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+
+import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
+import "swiper/swiper-bundle.min.css";
+// 要使用其他功能，需要先加载
+Swiper.use([Navigation, Pagination, Autoplay]);
+
 export default {
   name: "ListContainer",
   computed: {
@@ -122,8 +126,26 @@ export default {
   methods: {
     ...mapActions(["getBanners"]),
   },
-  mounted() {
-    this.getBanners();
+  async mounted() {
+    await this.getBanners();
+
+    this.$nextTick(() => {
+      new Swiper(".swiper-container", {
+        loop: true,
+        autoplay: {
+          delay: 1000,
+          autoplay: true,
+        },
+
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    });
   },
 };
 </script>

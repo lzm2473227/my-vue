@@ -462,8 +462,6 @@ export default {
   mounted() {
     //有数据就直接return   不需要任何操作
     if (this.categoryList.length) return;
-    // const result = reqGetBaseCatgoryList();
-    // this.categoryList = categoryList.slice(0, 15);
     this.getCategoryList();
     // console.log(this);
   },
