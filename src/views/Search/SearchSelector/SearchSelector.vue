@@ -18,8 +18,8 @@
       <div class="fl key">{{ attrs.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attr,index) in attrs.attrValueList" :key="index">
-            <a>{{attr}}</a>
+          <li v-for="(attr, index) in attrs.attrValueList" :key="index">
+            <a>{{ attr }}</a>
           </li>
         </ul>
       </div>
@@ -33,6 +33,10 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "SearchSelector",
+  props: {
+    add: Function,
+  },
+  methods: {},
   computed: {
     ...mapGetters(["attrsList", "trademarkList"]),
   },

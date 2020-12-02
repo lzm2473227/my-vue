@@ -11,10 +11,16 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-show="options.keyword" @click="delkeyword">
+              {{ options.keyword }}<i>×</i>
+            </li>
+            <li
+              class="with-x"
+              v-show="options.categoryName"
+              @click="delcategory"
+            >
+              {{ options.categoryName }}<i>×</i>
+            </li>
           </ul>
         </div>
 
@@ -47,7 +53,7 @@
               </ul>
             </div>
           </div>
-    <!-- 商品列表 -->
+          <!-- 商品列表 -->
           <div class="goods-list">
             <ul class="yui3-g">
               <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
@@ -60,7 +66,7 @@
                   <div class="price">
                     <strong>
                       <em>¥</em>
-                      <i>{{good.price}}</i>
+                      <i>{{ good.price }}</i>
                     </strong>
                   </div>
                   <div class="attr">
@@ -68,7 +74,7 @@
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                      >{{good.title}}</a
+                      >{{ good.title }}</a
                     >
                   </div>
                   <div class="commit">
@@ -116,7 +122,9 @@
                   <a href="#">下一页»</a>
                 </li>
               </ul>
-              <div><span>共{{totalPages}}页&nbsp;</span></div>
+              <div>
+                <span>共{{ totalPages }}页&nbsp;</span>
+              </div>
             </div>
           </div>
         </div>
@@ -131,18 +139,83 @@ import TypeNav from "@comps/TypeNav";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
   name: "Search",
+  data() {
+    return {
+      options: {
+        category1Id: "", // 一级分类id
+        category2Id: "", // 二级分类id
+        category3Id: "", // 三级分类id
+        categoryName: "", // 分类名称
+        keyword: "", // 搜索内容（搜索关键字）
+        order: "", // 排序方式：1：综合排序  2：价格排序   asc 升序  desc 降序
+        pageNo: 1, // 分页的页码（第几页）
+        pageSize: 5, // 分页的每页商品数量
+        props: [], // 商品属性
+        trademark: "", // 品牌
+      },
+    };
+  },
+  watch: {
+    $route() {
+      this.updataProductList();
+    },
+  },
   computed: {
-    ...mapGetters(["goodsList",'totalPages']),
+    ...mapGetters(["goodsList", "totalPages"]),
   },
   methods: {
     ...mapActions(["getProductList"]),
+    // add(result) {
+    //   this.num = result;
+    // },
+    updataProductList() {
+      const { searchText: keyword } = this.$route.params;
+      const {
+        categoryName,
+        category1Id,
+        category2Id,
+        category3Id,
+      } = this.$route.query;
+
+      const options = {
+        ...this.options,
+        keyword,
+        categoryName,
+        category1Id,
+        category2Id,
+        category3Id,
+      };
+      this.options = options;
+      this.getProductList(options);
+    },
+    delkeyword() {
+      this.options.keyword = "";
+      //   this.$route.params
+      // $route只读所以不能修改
+      this.$router.replace({
+        name: "search",
+        query: this.$route.query,       //这里需要query，所以携带query参数就可以了
+      });
+    },
+    delcategory() {
+      this.options.category = "";
+      this.options.category1Id = "";
+      this.options.category2Id = "";
+      this.options.category3Id = "";
+      //   this.$route.params
+      // $route只读所以不能修改
+      this.$router.replace({
+        name: "search",
+        params: this.$route.params,     //这里需要使用params就携带就行了
+      });
+    },
   },
   mounted() {
-    this.getProductList();
+    this.updataProductList();
   },
   components: {
     SearchSelector,
-    TypeNav
+    TypeNav,
   },
 };
 </script>
