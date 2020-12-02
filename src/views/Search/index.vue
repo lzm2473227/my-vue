@@ -1,9 +1,10 @@
 <template>
   <div>
+    <!-- 三级分类列表 -->
     <TypeNav />
     <div class="main">
       <div class="py-container">
-        <!--bread-->
+        <!--已选商品列表-->
         <div class="bread">
           <ul class="fl sui-breadcrumb">
             <li>
@@ -11,23 +12,34 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
+            <!--  -->
             <li class="with-x" v-show="options.keyword" @click="delkeyword">
-              {{ options.keyword }}<i>×</i>
+              关键词 {{ options.keyword }}<i>×</i>
             </li>
             <li
               class="with-x"
               v-show="options.categoryName"
               @click="delcategory"
             >
-              {{ options.categoryName }}<i>×</i>
+              分类名称 {{ options.categoryName }}<i>×</i>
+            </li>
+            <li class="with-x" v-show="options.trademark" @click="delTrademark">
+              品牌 {{ options.trademark.split(":")[1] }}<i>×</i>
+            </li>
+            <li class="with-x" 
+            v-for="prop in options.props" 
+            :key="prop"
+           
+            >
+            {{ prop.split(":")[2]}}:{{prop.split(":")[1] }}<i>x</i>
             </li>
           </ul>
         </div>
 
-        <!--selector-->
-        <SearchSelector />
+        <!--选择商品的类别-->
+        <SearchSelector :addTrademark="addTrademark" @add-prop="addProp" />
 
-        <!--details-->
+        <!--商品列表导航-->
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
@@ -95,7 +107,7 @@
               </li>
             </ul>
           </div>
-
+          <!-- 分页器 -->
           <div class="fr page">
             <div class="sui-pagination clearfix">
               <ul>
@@ -165,10 +177,9 @@ export default {
   },
   methods: {
     ...mapActions(["getProductList"]),
-    // add(result) {
-    //   this.num = result;
-    // },
+    //更新商品列表
     updataProductList() {
+      //重命名searchText: keyword
       const { searchText: keyword } = this.$route.params;
       const {
         categoryName,
@@ -194,7 +205,7 @@ export default {
       // $route只读所以不能修改
       this.$router.replace({
         name: "search",
-        query: this.$route.query,       //这里需要query，所以携带query参数就可以了
+        query: this.$route.query, //这里需要query，所以携带query参数就可以了
       });
     },
     delcategory() {
@@ -206,8 +217,29 @@ export default {
       // $route只读所以不能修改
       this.$router.replace({
         name: "search",
-        params: this.$route.params,     //这里需要使用params就携带就行了
+        params: this.$route.params, //这里需要使用params就携带就行了
       });
+    },
+    //添加品牌属性
+    addTrademark(trademark) {
+      this.options.trademark = trademark;
+      this.updataProductList();
+    },
+    //删除品牌属性
+    delTrademark() {
+      this.options.trademark = "";
+      this.updataProductList();
+    },
+    // 添加品牌属性并更新数据
+    addProp(prop) {
+    //你要prop记得要传入，
+      this.options.props.push(prop);
+      this.updataProductList();
+    },
+    // 删除品牌属性
+    delProp(index) {
+      this.options.props.splice(index, 1);
+      this.updataProductList();
     },
   },
   mounted() {

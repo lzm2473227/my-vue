@@ -4,7 +4,11 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">
+          <li
+            v-for="trademark in trademarkList"
+            :key="trademark.tmId"
+            @click="addTrademark(`${trademark.tmId}:${trademark.tmName}`)"
+          >
             {{ trademark.tmName }}
           </li>
         </ul>
@@ -18,7 +22,15 @@
       <div class="fl key">{{ attrs.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attr, index) in attrs.attrValueList" :key="index">
+          <li
+            v-for="(attr, index) in attrs.attrValueList"
+            :key="index"
+            @click="
+              $emit('add-prop', `${attrs.attrId}:${attr}:${attrs.attrName}`)
+            "
+          ><!-- 触发自定义事件addProp，语法要求用add-prop写，
+                $emit触发add-prop函数，然后在传入你要的参数，用模板字符创 -->
+          
             <a>{{ attr }}</a>
           </li>
         </ul>
@@ -34,7 +46,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "SearchSelector",
   props: {
-    add: Function,
+    addTrademark: Function,
   },
   methods: {},
   computed: {
