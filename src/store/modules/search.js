@@ -18,8 +18,8 @@ export default {
     goodsList(state) {
       return state.productList.goodsList;
     },
-    totalPages(state) {
-      return state.productList.totalPages;
+    total(state) {
+      return state.productList.total;
     },
   },
   actions: {
