@@ -40,10 +40,7 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li
-                  :class="{ active: options.order.indexOf('1') > -1 }"
-                  @click="setOrder('1')"
-                >
+                <li :class="{ active: isOrder('1') }" @click="setOrder('1')">
                   <a
                     >综合
                     <i
@@ -64,10 +61,7 @@
                 <li>
                   <a>评价</a>
                 </li>
-                <li
-                  :class="{ active: options.order.indexOf('2') > -1 }"
-                  @click="setOrder('2')"
-                >
+                <li :class="{ active: isOrder('2') }" @click="setOrder('2')">
                   <a
                     >价格
                     <span>
@@ -75,16 +69,14 @@
                         :class="{
                           iconfont: true,
                           'icon-arrow-up-filling': true,
-                          deactive:
-                            options.order.indexOf('2') > -1 && isPriceDown,
+                          deactive: isOrder('2') > -1 && isPriceDown,
                         }"
                       ></i>
                       <i
                         :class="{
                           iconfont: true,
                           'icon-arrow-down-filling': true,
-                          deactive:
-                            options.order.indexOf('2') > -1 && !isPriceDown,
+                          deactive: isOrder('2') > -1 && !isPriceDown,
                         }"
                       ></i>
                     </span>
@@ -138,13 +130,14 @@
           <!-- 分页器 -->
           <div class="block">
             <!-- <span class="demonstration">完整功能</span> -->
+            <!-- :current-page="options.pageNo"  让他的值为pageNo，在options上面 -->
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page="pageNo"
-              pager-count="7"
+              :current-page="options.pageNo"
+              :pager-count="7"
               :page-sizes="[5, 10, 15, 20]"
-              :page-size="10"
+              :page-size="5"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total"
             >
@@ -237,7 +230,9 @@ export default {
       });
     },
     //添加品牌属性并更新
+
     addTrademark(trademark) {
+      if (this.options.trademark) return;
       this.options.trademark = trademark;
       this.updataProductList();
     },
@@ -248,6 +243,7 @@ export default {
     },
     // 添加品牌属性并更新数据
     addProp(prop) {
+      if (this.options.props.indexOf(prop) > -1) return;
       //你要prop记得要传入，
       this.options.props.push(prop);
       this.updataProductList();
@@ -287,13 +283,16 @@ export default {
     //分页器
     //当每页条数发生变化触发
     handleSizeChange(pageSize) {
-      this.options.pageSize = pageSize;  //当前的每页商品数量
-      this.updataProductList();          //调用更新方法
+      this.options.pageSize = pageSize; //当前的每页商品数量
+      this.updataProductList(); //调用更新方法
     },
     // 当页码发生变化触发
     handleCurrentChange(pageNo) {
-      this.options.pageNo = pageNo;      //有多少页
-    this.updataProductList();             //调用更新方法
+      this.options.pageNo = pageNo; //有多少页
+      this.updataProductList(); //调用更新方法
+    },
+    isOrder(order) {
+      return this.options.order.indexOf(order) > -1;
     },
   },
   mounted() {
