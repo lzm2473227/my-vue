@@ -141,7 +141,7 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-               :current-page="pageNo"
+              :current-page="pageNo"
               pager-count="7"
               :page-sizes="[5, 10, 15, 20]"
               :page-size="10"
@@ -202,8 +202,8 @@ export default {
       } = this.$route.query;
 
       const options = {
-        ...this.options,
-        keyword,
+        ...this.options, //携带上所有初始化数据
+        keyword, //以下会覆盖上面的属性
         categoryName,
         category1Id,
         category2Id,
@@ -212,28 +212,31 @@ export default {
       this.options = options;
       this.getProductList(options);
     },
+    //删除关键词
     delkeyword() {
+      //先清除options
       this.options.keyword = "";
-      //   this.$route.params
-      // $route只读所以不能修改
+      //清空header组件的keyword
       this.$router.replace({
+        //清除路径params参数
+        //   this.$route.params = {}；
+        // $route只读所以不能修改    ，所以这里用replace方法来修改,直接replace跳转到另一个路由路径地址
         name: "search",
         query: this.$route.query, //这里需要query，所以携带query参数就可以了
       });
     },
+    //删除分类
     delcategory() {
       this.options.category = "";
       this.options.category1Id = "";
       this.options.category2Id = "";
       this.options.category3Id = "";
-      //   this.$route.params
-      // $route只读所以不能修改
       this.$router.replace({
         name: "search",
         params: this.$route.params, //这里需要使用params就携带就行了
       });
     },
-    //添加品牌属性
+    //添加品牌属性并更新
     addTrademark(trademark) {
       this.options.trademark = trademark;
       this.updataProductList();
@@ -272,7 +275,7 @@ export default {
         // 点击一次, 如果点击的是价格，应该初始化为升序
         if (order === "2") {
           this.isPriceDown = false;
-          this.c = "asc";
+          orderType = "asc";
         } else {
           orderType = this.isAllDown ? "desc" : "asc";
         }
@@ -284,13 +287,13 @@ export default {
     //分页器
     //当每页条数发生变化触发
     handleSizeChange(pageSize) {
-      this.options.pageSize = pageSize;
-      this.updataProductList();
+      this.options.pageSize = pageSize;  //当前的每页商品数量
+      this.updataProductList();          //调用更新方法
     },
     // 当页码发生变化触发
     handleCurrentChange(pageNo) {
-      this.options.pageNo = pageNo;
-      this.updataProductList();
+      this.options.pageNo = pageNo;      //有多少页
+    this.updataProductList();             //调用更新方法
     },
   },
   mounted() {

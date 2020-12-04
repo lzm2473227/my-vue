@@ -1,7 +1,6 @@
 <template>
   <div class="login-wrap">
     <div class="login">
-        <button @click="login"></button>
       <div class="login-from">
         <ul>
           <li><a href="##">扫描登录</a></li>
