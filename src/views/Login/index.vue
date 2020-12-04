@@ -35,7 +35,7 @@
 
 <script>
 import { reqLogin } from "@api/user";
-export default {
+export default {            
   name: "Login",
   methods: {
       login(){

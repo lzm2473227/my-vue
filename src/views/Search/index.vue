@@ -128,10 +128,17 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <div class="block">
-            <!-- <span class="demonstration">完整功能</span> -->
-            <!-- :current-page="options.pageNo"  让他的值为pageNo，在options上面 -->
-            <el-pagination
+          <Pagination 
+          @current-change="handleCurrentChange"
+          :current-page="options.pageNo" 
+          :pager-count="7"
+          :page-size="5"
+          :total="total"
+          />
+          <!-- <div class="block"> -->
+          <!-- <span class="demonstration">完整功能</span> -->
+          <!-- :current-page="options.pageNo"  让他的值为pageNo，在options上面 -->
+          <!-- <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="options.pageNo"
@@ -141,8 +148,8 @@
               layout="total, sizes, prev, pager, next, jumper"
               :total="total"
             >
-            </el-pagination>
-          </div>
+            </el-pagination> -->
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -153,6 +160,7 @@
 import { mapGetters, mapActions } from "vuex";
 import TypeNav from "@comps/TypeNav";
 import SearchSelector from "./SearchSelector/SearchSelector";
+import Pagination from "@comps/Pagination";
 export default {
   name: "Search",
   data() {
@@ -301,6 +309,7 @@ export default {
   components: {
     SearchSelector,
     TypeNav,
+    Pagination,
   },
 };
 </script>
