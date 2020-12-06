@@ -4,6 +4,7 @@ import getUserTempId from "@utils/getUserTempld";
 import NProgress from "nprogress"; //进度条的包
 import "nprogress/nprogress.css";
 
+// 文件加载就只加载一次，拿到外面就触发一次，不会像拦截器里每次都会触发
 const userTempId = getUserTempId();
 
 const instance = axios.create({

@@ -2,10 +2,11 @@ import {
   reqGetCartList,
   reqUpdateCartCount,
   reqUpdateCartCheck,
+  reqDelCart,
 } from "@api/shopcart";
 
 export default {
-//   namespaced: true,
+  //   namespaced: true,
   state: {
     cartList: [], //所有购物车数据
   },
@@ -31,6 +32,12 @@ export default {
       await reqUpdateCartCheck(skuId, isChecked);
       console.log(commit);
     },
+
+    //删除一个商品
+    async delCart({ commit },skuId) {
+       await reqDelCart(skuId); 
+       console.log(commit)
+    },
   },
   mutations: {
     GET_CART_LIST(state, cartList) {
@@ -45,5 +52,6 @@ export default {
         return cart;
       });
     },
+    
   },
 };

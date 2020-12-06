@@ -49,7 +49,7 @@
             <span class="sum">{{ cart.skuNum * cart.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a class="sindelet" @click="delCarts(cart.skuId)">删除</a>
             <br />
             <a href="#none">移到收藏</a>
           </li>
@@ -105,14 +105,22 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getCartList", "updateCartCount"]),
+    ...mapActions(["getCartList", "updateCartCount", "delCart"]),
+
     // 更新商品数量
     async updateCount(skuId, skuNum) {
       // 更新商品
       await this.updateCartCount({ skuId, skuNum });
-      // 刷新页面
-      // this.getCartList();
+      // this.getCartList();  // 刷新页面
     },
+
+    //删除商品
+    async delCarts(skuId) {
+    //   if (window.confirm(`确定删除吗?`)) {
+          await this.delCart(skuId);
+          this.getCartList();
+      }
+    // },
   },
   mounted() {
     this.getCartList();
