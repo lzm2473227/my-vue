@@ -5,9 +5,9 @@
         <div class="login-list">
           <p>尚品汇欢迎您！</p>
           <p v-if="$store.state.user.name">
-              <span>{{$store.state.user.name}}</span>
+            <span>{{ $store.state.user.name }}</span>
 
-              <button>退出</button>
+            <button @click="logout">退出</button>
           </p>
           <p v-else>
             <span>请</span>
@@ -64,6 +64,10 @@ export default {
     };
   },
   methods: {
+    logout() {
+      localStorage.removeItem("name"), 
+      localStorage.removeItem("token");
+    },
     search() {
       const { searchText } = this;
       const location = {
