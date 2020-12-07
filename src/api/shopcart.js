@@ -30,3 +30,10 @@ export const reqDelCart = (skuId) => {
     url: `/cart/deleteCart/${skuId}`,
   });
 };
+//删除选中的商品
+export const reqAllDelCart = (skuId) => {
+  return request({
+    method: "DELETE",
+    url: `/cart/deleteCart/${skuId}`,
+  });
+};

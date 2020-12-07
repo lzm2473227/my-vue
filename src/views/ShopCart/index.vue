@@ -25,11 +25,12 @@
             <span class="price">{{ cart.skuPrice }}</span>
           </li>
           <li class="cart-list-con5">
-            <a
+            <button
               href="javascript:void(0)"
               @click="updateCount(cart.skuId, -1)"
               class="mins"
-              >-</a
+              :disabled="cart.skuNum===1"
+              >-</button
             >
             <input
               autocomplete="off"
@@ -38,11 +39,12 @@
               minnum="1"
               class="itxt"
             />
-            <a
+            <button
               href="javascript:void(0)"
               @click="updateCount(cart.skuId, 1)"
               class="plus"
-              >+</a
+              :disabled="cart.skuNum===10"
+              >+</button
             >
           </li>
           <li class="cart-list-con6">
@@ -116,11 +118,12 @@ export default {
 
     //删除商品
     async delCarts(skuId) {
-    //   if (window.confirm(`确定删除吗?`)) {
+      if (window.confirm(`确定删除${skuId}吗?`)) {
           await this.delCart(skuId);
-          this.getCartList();
+          
+          this.getCartList(); //志杰调用更新刷新页面的方法
       }
-    // },
+    },
   },
   mounted() {
     this.getCartList();
