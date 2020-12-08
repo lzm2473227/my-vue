@@ -29,9 +29,10 @@
               href="javascript:void(0)"
               @click="updateCount(cart.skuId, -1)"
               class="mins"
-              :disabled="cart.skuNum===1"
-              >-</button
+              :disabled="cart.skuNum === 1"
             >
+              -
+            </button>
             <input
               autocomplete="off"
               type="text"
@@ -43,9 +44,10 @@
               href="javascript:void(0)"
               @click="updateCount(cart.skuId, 1)"
               class="plus"
-              :disabled="cart.skuNum===10"
-              >+</button
+              :disabled="cart.skuNum === 10"
             >
+              +
+            </button>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{ cart.skuNum * cart.skuPrice }}</span>
@@ -78,7 +80,7 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <a class="sum-btn" @click="submit">结算</a>
         </div>
       </div>
     </div>
@@ -119,10 +121,14 @@ export default {
     //删除商品
     async delCarts(skuId) {
       if (window.confirm(`确定删除${skuId}吗?`)) {
-          await this.delCart(skuId);
-          
-          this.getCartList(); //志杰调用更新刷新页面的方法
+        await this.delCart(skuId);
+
+        this.getCartList(); //志杰调用更新刷新页面的方法
       }
+    },
+    //点击跳转页面到trade页面
+    submit() {
+      this.$router.push("/trade");
     },
   },
   mounted() {

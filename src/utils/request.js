@@ -3,6 +3,7 @@ import { Message } from "element-ui"; //错误按钮提示
 import getUserTempId from "@utils/getUserTempld";
 import NProgress from "nprogress"; //进度条的包
 import "nprogress/nprogress.css";
+import store from "../store";
 
 // 文件加载就只加载一次，拿到外面就触发一次，不会像拦截器里每次都会触发
 const userTempId = getUserTempId();
@@ -16,6 +17,12 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   // 开始进度条   请求拦截器触发的时候开始进度条
   NProgress.start();
+
+  const token = store.state.user.token;
+  if (token) {
+    config.headers.token = token;
+  }
+
   config.headers.userTempId = userTempId;
 
   return config;
