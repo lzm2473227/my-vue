@@ -3,17 +3,29 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 
-import Home from "../views/Home";
-import Login from "../views/Login";
-import Register from "../views/Register";
-import Search from "../views/Search";
-import Detail from "../views/Detail";
-import AddCartSuccess from "../views/AddCartSuccess";
-import ShopCart from "../views/ShopCart";
-import Trade from "../views/Trade";
-import Pay from "../views/Pay";
-import PaySuccess from "../views/PaySuccess";
-import Center from "../views/Center";
+const Home = () => import('../views/Home')
+const Login = () => import('../views/Login')
+const Register = () => import('../views/Register')
+const Search = () => import('../views/Search')
+const Detail = () => import('../views/Detail')
+const AddCartSuccess = () => import('../views/AddCartSuccess')
+const ShopCart = () => import('../views/ShopCart')
+const Trade = () => import('../views/Trade')
+const Pay = () => import('../views/PaySuccess')
+const PaySuccess = () => import('../views/Home')
+const Center = () => import('../views/Center')
+
+// import Home from "../views/Home";
+// import Login from "../views/Login";
+// import Register from "../views/Register";
+// import Search from "../views/Search";
+// import Detail from "../views/Detail";
+// import AddCartSuccess from "../views/AddCartSuccess";
+// import ShopCart from "../views/ShopCart";
+// import Trade from "../views/Trade";
+// import Pay from "../views/Pay";
+// import PaySuccess from "../views/PaySuccess";
+// import Center from "../views/Center";
 
 // 重写push和replace方法
 // 目的：为了让编程式导航重复点击时不报错~

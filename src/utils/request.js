@@ -7,9 +7,11 @@ import store from "../store";
 
 // 文件加载就只加载一次，拿到外面就触发一次，不会像拦截器里每次都会触发
 const userTempId = getUserTempId();
+const prefix_url =
+  process.env.NODE_ENV === "development" ? "/" : "http://182.92.128.115/";
 
 const instance = axios.create({
-  baseURL: "/api",
+  baseURL: `${prefix_url}api`, // 公共的基础路径
   headers: {},
 });
 
