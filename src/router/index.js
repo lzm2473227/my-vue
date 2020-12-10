@@ -3,17 +3,18 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 
-const Home = () => import('../views/Home')
-const Login = () => import('../views/Login')
-const Register = () => import('../views/Register')
-const Search = () => import('../views/Search')
-const Detail = () => import('../views/Detail')
-const AddCartSuccess = () => import('../views/AddCartSuccess')
-const ShopCart = () => import('../views/ShopCart')
-const Trade = () => import('../views/Trade')
-const Pay = () => import('../views/PaySuccess')
-const PaySuccess = () => import('../views/Home')
-const Center = () => import('../views/Center')
+const Home = () => import("../views/Home");
+const Login = () => import("../views/Login");
+const Register = () => import("../views/Register");
+const Search = () => import("../views/Search");
+const Detail = () => import("../views/Detail");
+const AddCartSuccess = () => import("../views/AddCartSuccess");
+const ShopCart = () => import("../views/ShopCart");
+const Trade = () => import("../views/Trade");
+const Pay = () => import("../views/Pay");
+const PaySuccess = () => import("../views/PaySuccess");
+const Center = () => import("../views/Center");
+// const MyOrder = () => import("../views/Center/MyOrder");
 
 // import Home from "../views/Home";
 // import Login from "../views/Login";
@@ -33,117 +34,121 @@ const push = VueRouter.prototype.push;
 const replace = VueRouter.prototype.replace;
 
 VueRouter.prototype.push = function(location, onComplete, onAbort) {
-	// 如果用户想处理失败，就处理
-	if (onComplete && onAbort) {
-		return push.call(this, location, onComplete, onAbort);
-	}
-	// 如果用户不处理失败，给默认值：空函数
-	return push.call(this, location, onComplete, () => {});
+  // 如果用户想处理失败，就处理
+  if (onComplete && onAbort) {
+    return push.call(this, location, onComplete, onAbort);
+  }
+  // 如果用户不处理失败，给默认值：空函数
+  return push.call(this, location, onComplete, () => {});
 };
 
 VueRouter.prototype.replace = function(location, onComplete, onAbort) {
-	// 如果用户想处理失败，就处理
-	if (onComplete && onAbort) {
-		return replace.call(this, location, onComplete, onAbort);
-	}
-	// 如果用户不处理失败，给默认值：空函数
-	return replace.call(this, location, onComplete, () => {});
+  // 如果用户想处理失败，就处理
+  if (onComplete && onAbort) {
+    return replace.call(this, location, onComplete, onAbort);
+  }
+  // 如果用户不处理失败，给默认值：空函数
+  return replace.call(this, location, onComplete, () => {});
 };
 
 // 安装插件
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    
-	// 路由配置
-	routes: [
-		{
-			path: "/",
-			component: Home,
-		},
-		{
-			path: "/login",
-			component: Login,
-			meta: {
-				isFooterHide: true,
-			},
-		},
-		{
-			path: "/register",
-			component: Register,
-			meta: {
-				isFooterHide: true,
-			},
-		},
-		{
-			// 命名路由
-			name: "search",
-			// ?: 代表 params 参数是可选的
-			path: "/search/:searchText?",
-			component: Search,
-		},
-		{
-			// 命名路由
-			name: "detail",
-			path: "/detail/:id",
-			component: Detail,
-		},
-		{
-			// 命名路由
-			name: "addcartsuccess",
-			path: "/addcartsuccess",
-			component: AddCartSuccess,
-			// 路由独享守卫
-			// beforeEnter: (to, from, next) => {
-			// 	// 需求：只有添加了购物车才能进行，没有添加就去购物车页面
-			// 	// console.log(to, from, next);
-			// 	// 1. 从detail过来 2. 有数据
-			// 	if (from.name === "detail" && sessionStorage.getItem("cart")) {
-			// 		return next();
-			// 	}
+  // 路由配置
+  routes: [
+    {
+      path: "/",
+      component: Home,
+    },
+    {
+      path: "/login",
+      component: Login,
+      meta: {
+        isFooterHide: true,
+      },
+    },
+    {
+      path: "/register",
+      component: Register,
+      meta: {
+        isFooterHide: true,
+      },
+    },
+    {
+      // 命名路由
+      name: "search",
+      // ?: 代表 params 参数是可选的
+      path: "/search/:searchText?",
+      component: Search,
+    },
+    {
+      // 命名路由
+      name: "detail",
+      path: "/detail/:id",
+      component: Detail,
+    },
+    {
+      // 命名路由
+      name: "addcartsuccess",
+      path: "/addcartsuccess",
+      component: AddCartSuccess,
+      // 路由独享守卫
+      // beforeEnter: (to, from, next) => {
+      // 	// 需求：只有添加了购物车才能进行，没有添加就去购物车页面
+      // 	// console.log(to, from, next);
+      // 	// 1. 从detail过来 2. 有数据
+      // 	if (from.name === "detail" && sessionStorage.getItem("cart")) {
+      // 		return next();
+      // 	}
 
-			// 	next("/shopcart");
-			// },
-		},
-		{
-			// 命名路由
-			name: "shopcart",
-			path: "/shopcart",
-			component: ShopCart,
-		},
-		{
-			// 命名路由
-			name: "trade",
-			path: "/trade",
-			component: Trade,
-		},
-		{
-			// 命名路由
-			name: "pay",
-			path: "/pay",
-			component: Pay,
-		},
-		{
-			// 命名路由
-			name: "paysuccess",
-			path: "/paysuccess",
-			component: PaySuccess,
-		},
-		{
-			// 命名路由
-			name: "center",
-			path: "/center/myorder",
-			component: Center,
-		},
-	],
-	// 每次切换路由页面滚动条位置
-	scrollBehavior() {
-		return { x: 0, y: 0 };
-	},
+      // 	next("/shopcart");
+      // },
+    },
+    {
+      // 命名路由
+      name: "shopcart",
+      path: "/shopcart",
+      component: ShopCart,
+    },
+    {
+      // 命名路由
+      name: "trade",
+      path: "/trade",
+      component: Trade,
+    },
+    {
+      // 命名路由
+      name: "pay",
+      path: "/pay",
+      component: Pay,
+    },
+    {
+      // 命名路由
+      name: "paysuccess",
+      path: "/paysuccess",
+      component: PaySuccess,
+    },
+    {
+      // 命名路由
+      name: "center",
+      path: "/center/myorder",
+      component: Center,
+    //   children: [
+    //     {
+    //       path: "/center/myorder",
+    //       component: MyOrder,
+    //     },
+    //   ],
+    },
+  ],
+  // 每次切换路由页面滚动条位置
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
 });
 
-
-       /*  全局守卫
+/*  全局守卫
             全局前置守卫：在切换路由之前触发
                 beforeEach
             全局解析守卫：之中
@@ -157,13 +162,13 @@ const router = new VueRouter({
             beforeRouteUpdate
             beforeRouteLeave
     3. 作用：
-        用来做权限认证（判断当前要跳转的地址，有没有权限可以访问）		 */	
+        用来做权限认证（判断当前要跳转的地址，有没有权限可以访问）		 */
 
 // 需要进行权限验证的地址
 const permissionPaths = ["/trade", "/pay", "/center"];
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-	/*
+  /*
 		to   要去的路由对象($route)
 		from 从哪来的路由对象（当前路由对象）($route)
 		next 是一个函数：跳转到哪个路由的方法
@@ -172,21 +177,21 @@ router.beforeEach((to, from, next) => {
 
 	*/
 
-	// if (permissionPaths.indexOf(to.path) > -1) {
-	// 	if (store.state.user.token) {
-	// 		next();
-	// 	} else {
-	// 		next("/login");
-	// 	}
-	// } else {
-	// 	next();
-	// }
+  // if (permissionPaths.indexOf(to.path) > -1) {
+  // 	if (store.state.user.token) {
+  // 		next();
+  // 	} else {
+  // 		next("/login");
+  // 	}
+  // } else {
+  // 	next();
+  // }
 
-	if (permissionPaths.indexOf(to.path) > -1 && !store.state.user.token) {
-		return next("/login");
-	}
+  if (permissionPaths.indexOf(to.path) > -1 && !store.state.user.token) {
+    return next("/login");
+  }
 
-	next();
+  next();
 });
 
 export default router;
